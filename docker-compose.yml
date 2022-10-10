@@ -1,0 +1,121 @@
+version: '3.2'
+
+services:
+  looplex-api:
+    container_name: looplex-api
+    image: lp/document-assembly
+    network_mode: host
+    env_file:
+      - .env
+    build:
+      context: ./document-assembler
+      target: app
+      args:
+        - rmi=true
+        - rm=true
+    logging:
+      options:
+        max-file: "5"
+        max-size: "20m"
+    depends_on:
+      - database
+      - kafdrop
+
+  looplex-document-processor-api:
+    container_name: looplex-document-processor-api
+    image: lp/document-processor
+    network_mode: host
+    env_file:
+      - .env
+    build:
+      context: ./spring-document-processor
+      target: app
+      args:
+        - rmi=true
+        - rm=true
+    logging:
+      options:
+        max-file: "5"
+        max-size: "20m"
+    depends_on:
+      - mongo-db
+      - kafdrop
+      - localstack
+
+  database:
+    image: postgres:14
+    container_name: lp-da-postgresql
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    environment:
+      POSTGRES_DB: lp
+      POSTGRES_USER: lpda
+      POSTGRES_PASSWORD: z456ip
+    ports:
+      - "2345:5432"
+
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:5.0.3
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "2347:27017"
+    logging:
+      options:
+        max-file: "5"
+        max-size: "20m"
+    command: mongod
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    networks:
+      - broker-kafka
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    networks:
+      - broker-kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    networks:
+      - broker-kafka
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+    depends_on:
+      - kafka
+    
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - DEBUG=1
+    env_file:
+      - .env
+    ports:
+      - 4566:4566
+      - 2342:2342
+
+networks:
+  broker-kafka:
+    driver: bridge

@@ -1,0 +1,28 @@
+server:
+  port: 2348
+  error:
+    include-stacktrace: never
+    include-message: always
+  servlet:
+    context-path: /api/dp
+
+br:
+  dev:
+    rodrigocury:
+      kafka:
+        bootstrap-address: localhost:9092
+        group-id: document
+      s3:
+        access-key: ${AWS_SECRET_ACCESS_KEY}
+        secret-key-id: ${AWS_SECRET_KEY_ID}
+        uri: http://localhost:4566
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_URI}:${MONGO_PORT}
+      database: ${MONGO_DB}
+  kafka:
+    consumer:
+      auto-commit-interval: 60000
+      auto-offset-reset: earliest

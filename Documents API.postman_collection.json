@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "c4cce122-a79b-4a44-84e6-2121fc9b6568",
+		"name": "Documents API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18609347"
+	},
+	"item": [
+		{
+			"name": "Get Page Of Documents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/document",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"document"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Single Document By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/document/{{documentId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"document",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Document",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json()",
+							"",
+							"const id = body.id",
+							"",
+							"pm.collectionVariables.set(\"documentId\", id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentName\": \"Lorem Ipsum\",\n    \"initialBranch\" : {\n        \"leaves\": [\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis et nibh et gravida. Maecenas dictum felis erat, sed gravida elit faucibus et. Nunc varius varius lectus vel blandit. Suspendisse ut porta ex, posuere interdum est. Nunc sit amet lacinia mauris. Nunc dolor felis, consectetur quis congue vel, interdum vitae dolor. Phasellus ac erat lobortis, lobortis enim dictum, pharetra ante. Sed scelerisque turpis porttitor ligula mattis interdum. Duis nec mi placerat, rutrum lacus id, lacinia nulla. Nunc nec nisi sapien.\", \"Duis sit amet iaculis purus. Cras ultrices enim vitae metus feugiat egestas. Proin sed vulputate nunc. Quisque lacinia tincidunt tellus eget dictum. Praesent congue magna nisi, a sodales massa hendrerit sit amet. Ut euismod consectetur ipsum, sed venenatis nisl porttitor et. Duis consequat accumsan lectus, a vulputate tortor consequat ac. Suspendisse rutrum, felis ut dignissim sagittis, eros urna vehicula mi, nec rhoncus sapien ipsum vitae ligula. Vestibulum a interdum diam, vel euismod massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam lacinia purus ac leo congue mattis eget vehicula dui. Sed vel nisl id augue ultricies vestibulum non eget tellus. Aliquam faucibus, nibh nec luctus varius, orci libero pretium nisi, at volutpat nisi felis sit amet diam. Morbi tempor id dolor id feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus gravida porttitor.\"],\n        \"nextBranch\": {\n            \"leaves\": [\"In non congue sem. Sed sed nulla ac nunc volutpat posuere. Aliquam fermentum arcu turpis. Proin lorem enim, aliquam sodales augue vel, eleifend molestie nisl. Pellentesque in risus eget tortor porta elementum. Vivamus interdum quis elit ac eleifend. Duis consequat, arcu at auctor efficitur, sem risus ornare arcu, sed dapibus arcu erat non magna. Aenean bibendum cursus nunc, in aliquet mi venenatis a. Aenean luctus rutrum felis, efficitur convallis mi scelerisque vel.\", \"Morbi convallis, nulla sed volutpat volutpat, libero sapien placerat metus, ac viverra ligula dolor quis dui. Nam accumsan velit auctor velit sodales posuere. Duis eget dictum ligula. Suspendisse quis congue lectus, vel hendrerit augue. Vivamus arcu augue, dictum id dolor eget, euismod commodo odio. Nulla a eros massa. Nulla eleifend nec enim ut luctus. Duis pulvinar cursus nisl. Ut tincidunt leo ut dui condimentum, sed fermentum mi lobortis. Morbi nibh leo, faucibus eget libero varius, volutpat rhoncus nibh. Sed ac augue vulputate, fermentum dui a, aliquet ex. Nunc non pulvinar ex, efficitur ullamcorper lectus.\"],\n            \"nextBranch\": {\n                \"leaves\": [\"Fusce laoreet diam ut sapien vulputate, eu cursus ligula malesuada. Donec tempus euismod viverra. Ut ipsum enim, vehicula sit amet augue at, sagittis posuere felis. Morbi elementum lorem nec porta condimentum. Nunc ex urna, posuere sit amet nibh sed, aliquam dictum leo. Donec eget turpis non massa aliquet feugiat a at ipsum. Aliquam egestas nisl eget nibh ultrices eleifend. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sem ipsum, convallis at leo ac, ornare rutrum elit. Nullam porttitor lorem mi, id condimentum libero semper vel. Quisque viverra turpis aliquam, pharetra lacus sed, venenatis elit. Aliquam sollicitudin enim ac auctor ultricies. Vivamus luctus eget est varius commodo.\", \"Sed eu mollis lorem, eu placerat tortor. Integer aliquet tellus auctor augue ullamcorper imperdiet. Donec lacinia tincidunt nisi, sit amet varius est congue vel. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec tellus nisl, aliquet eu nibh ac, convallis egestas arcu. Etiam nibh felis, interdum vitae bibendum efficitur, facilisis sed nisl. Mauris sagittis quis nisi a lobortis. Pellentesque sit amet rhoncus dolor. Phasellus egestas enim quis est convallis, non convallis sapien molestie. Sed pellentesque auctor nulla, vel pellentesque sem pulvinar sed. In id velit at turpis posuere porttitor. Curabitur leo elit, congue et risus sit amet, cursus porta mauris. Aenean arcu mi, aliquet ut varius quis, tristique vitae nisi. Nam orci quam, dignissim a risus ultricies, egestas congue ipsum. Cras dapibus mi ut sem auctor, ac sollicitudin velit aliquam. Nulla accumsan fringilla lacus nec iaculis.\"],\n                \"nextBranch\": null\n            }\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/document",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"document"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Document",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/document/{{documentId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"document",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Process Document",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/document/process/{{documentId}}?processingType=DOCX",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"document",
+						"process",
+						"{{documentId}}"
+					],
+					"query": [
+						{
+							"key": "processingType",
+							"value": "CONSOLE",
+							"disabled": true
+						},
+						{
+							"key": "processingType",
+							"value": "DOCX"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Document File",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_file_manager}}/6343a0625b100c055de416ae",
+					"host": [
+						"{{base_url_file_manager}}"
+					],
+					"path": [
+						"6343a0625b100c055de416ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Document Files",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_file_manager}}/document-files/{{documentId}}",
+					"host": [
+						"{{base_url_file_manager}}"
+					],
+					"path": [
+						"document-files",
+						"{{documentId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:2346/api/da",
+			"disabled": true
+		},
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "documentId",
+			"value": ""
+		},
+		{
+			"key": "base_url_file_manager",
+			"value": "http://localhost:2348/api/dṕ"
+		}
+	]
+}

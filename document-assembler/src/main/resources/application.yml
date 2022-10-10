@@ -1,0 +1,38 @@
+server:
+  port: 2346
+  error:
+    include-stacktrace: never
+    include-message: always
+  servlet:
+    context-path: /api/da
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DATASOURCE_USER}
+    url: jdbc:postgresql://${DATASOURCE_URL}:${DATASOURCE_PORT}/${DATASOURCE_DB}
+    password: ${DATASOURCE_PASS}
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${DATASOURCE_URL}:${DATASOURCE_PORT}/${DATASOURCE_DB}
+    user: ${DATASOURCE_USER}
+    password: ${DATASOURCE_PASS}
+    outOfOrder: true
+
+  kafka:
+    producer:
+      properties:
+        spring:
+          json:
+            add:
+              type:
+                headers: false
+br:
+  dev:
+    rodrigocury:
+      kafka:
+        bootstrap-address: localhost:9092
+        document-topic: document
+        document-console-topic: document-console
+        document-deletion-topic: document-deletion
+
